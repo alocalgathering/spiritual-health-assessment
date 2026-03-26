@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Spiritual Health Assessment — A Local Gathering</title>
+</head>
+<body>
+<!-- ============================================================
+  A LOCAL GATHERING — Spiritual Health Assessment
+  v5 — Full-page open layout
+  ============================================================ -->
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#fff;min-height:100vh;}
+#sha-app *,#sha-app *::before,#sha-app *::after{box-sizing:border-box;margin:0;padding:0;}
+#sha-app{
+  --sha-teal:#3DBFBF;--sha-teal-d:#2A9090;--sha-gold:#C8860A;--sha-gold-l:#FFF8E8;
+  --sha-navy:#1A1A6E;--sha-dark:#2C2016;--sha-green:#2E8B57;--sha-blue:#1A6BAF;
+  --sha-purple:#7B3FA0;--sha-purple-d:#5e2e7a;--sha-purple-l:#F5EEFF;
+  --sha-cream:#FDFCF7;--sha-gray:#555;--sha-lgray:#888;--sha-border:#E0DCCC;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:17px;color:#222;background:#fff;
+  display:block;
+  width:100%;
+  max-width:1100px;
+  min-width:0;
+  margin:0 auto;
+  padding:0;
+  box-shadow:0 0 80px rgba(0,0,0,0.07);
+}
+
+/* ── Progress bar — full bleed ── */
+.sha-prog-wrap{background:#e8e4d8;height:6px;width:100%;}
+.sha-prog-fill{height:6px;background:var(--sha-teal);transition:width .6s ease;}
+.sha-prog-fill.sha-purple-prog{background:var(--sha-purple);}
+
+/* ── Step dots ── */
+.sha-steps{display:flex;justify-content:center;gap:6px;padding:14px 0 4px;background:#fff;}
+.sha-step-dot{width:8px;height:8px;border-radius:50%;background:#E0DCCC;transition:all .3s;}
+.sha-step-dot.sha-active{background:var(--sha-teal);transform:scale(1.4);}
+.sha-step-dot.sha-active-p{background:var(--sha-purple);transform:scale(1.4);}
+.sha-step-dot.sha-done{background:var(--sha-teal);opacity:.5;}
+.sha-step-dot.sha-done-p{background:var(--sha-purple);opacity:.6;}
+
+/* ── Phase label ── */
+.sha-phase-label{text-align:center;font-size:10px;font-weight:700;letter-spacing:.1em;padding:2px 0 8px;transition:color .3s;background:#fff;}
+.sha-phase-label.teal{color:var(--sha-teal-d);}
+.sha-phase-label.purple{color:var(--sha-purple);}
+
+/* ── Screens ── */
+.sha-screen{display:none;animation:shaFadeIn .35s ease;}
+.sha-screen.sha-active{display:block;}
+@keyframes shaFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Hero banners — full bleed ── */
+.sha-hero{background:linear-gradient(160deg,var(--sha-dark) 0%,#4a3820 100%);padding:56px 24px;text-align:center;border-bottom:4px solid var(--sha-teal);width:100%;}
+.sha-hero.sha-purple-hero{border-bottom-color:var(--sha-purple);}
+.sha-hero h2{color:#fff;font-size:28px;font-weight:800;margin-bottom:4px;}
+.sha-hero p{color:rgba(255,255,255,.7);font-size:14px;}
+.sha-hero .sha-badge{font-size:56px;margin-bottom:16px;}
+.sha-hero .sha-tagline{color:var(--sha-gold);font-size:13px;font-weight:700;letter-spacing:.1em;margin-bottom:12px;}
+.sha-hero .sha-sub{color:var(--sha-teal);font-size:13px;font-weight:700;letter-spacing:.12em;margin-bottom:16px;}
+.sha-hero .sha-sub.purple{color:#c9a0e8;}
+.sha-verse{background:rgba(255,255,255,.08);border-left:3px solid var(--sha-teal);border-radius:0 8px 8px 0;padding:12px 18px;text-align:left;margin:0 auto;max-width:480px;}
+.sha-verse p{color:rgba(255,255,255,.85);font-size:13px;font-style:italic;line-height:1.6;}
+.sha-verse span{color:var(--sha-lgray);font-size:12px;}
+
+/* ── Body — centered column ── */
+.sha-body{padding:40px 24px 60px;width:100%;max-width:900px;margin-left:auto;margin-right:auto;box-sizing:border-box;}
+
+/* ── Rhythm cards ── */
+.sha-rhythms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;}
+.sha-rc{background:rgba(255,255,255,.07);border-radius:12px;padding:18px 10px;text-align:center;border:1px solid rgba(255,255,255,.1);}
+.sha-rc .sha-ri{font-size:28px;margin-bottom:8px;}
+.sha-rc .sha-rn{font-size:12px;font-weight:700;letter-spacing:.05em;margin-bottom:4px;}
+.sha-rc .sha-rd{font-size:11px;color:rgba(255,255,255,.5);line-height:1.4;}
+.sha-rc.sha-gold{border-color:var(--sha-gold);}.sha-rc.sha-gold .sha-rn{color:var(--sha-gold);}
+.sha-rc.sha-blue{border-color:var(--sha-blue);}.sha-rc.sha-blue .sha-rn{color:#5BA8E0;}
+.sha-rc.sha-green{border-color:var(--sha-green);}.sha-rc.sha-green .sha-rn{color:#5CB87A;}
+
+/* ── Scale legend ── */
+.sha-legend{background:#fff;border-radius:12px;padding:20px 24px;margin:16px 0;border:1px solid var(--sha-border);}
+.sha-legend h3{font-size:14px;color:var(--sha-navy);font-weight:700;margin-bottom:12px;}
+.sha-srow{display:flex;align-items:center;gap:12px;padding:6px 0;}
+.sha-snum{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.sha-srow p{font-size:13px;color:#333;line-height:1.3;}
+.sha-srow p small{color:var(--sha-lgray);font-size:11px;}
+
+/* ── Form fields ── */
+.sha-form{background:#fff;border-radius:12px;padding:22px 24px;margin:16px 0;border:1px solid var(--sha-border);}
+.sha-form h3{font-size:15px;color:var(--sha-navy);font-weight:700;margin-bottom:14px;}
+.sha-frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:440px){.sha-frow{grid-template-columns:1fr;}}
+.sha-ff{display:flex;flex-direction:column;gap:5px;}
+.sha-ff.sha-full{grid-column:1/-1;}
+.sha-ff label{font-size:11px;font-weight:700;color:var(--sha-gray);letter-spacing:.05em;}
+.sha-ff input{padding:12px 15px;border:1.5px solid var(--sha-border);border-radius:9px;font-size:16px;outline:none;transition:border-color .2s;-webkit-appearance:none;width:100%;}
+.sha-ff input:focus{border-color:var(--sha-teal);}
+.sha-ff input.purple-focus:focus{border-color:var(--sha-purple);}
+
+/* ── Handoff screen ── */
+.sha-handoff{background:linear-gradient(160deg,var(--sha-purple-d) 0%,#3d1a5e 100%);padding:56px 24px;text-align:center;width:100%;}
+.sha-handoff .sha-badge{font-size:64px;margin-bottom:18px;animation:shaHandoffPulse 2s ease-in-out infinite;}
+@keyframes shaHandoffPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+.sha-handoff h2{color:#fff;font-size:26px;font-weight:800;margin-bottom:8px;}
+.sha-handoff .sha-to{color:#c9a0e8;font-size:13px;font-weight:700;letter-spacing:.08em;margin-bottom:14px;}
+.sha-handoff-name{color:#fff;font-size:30px;font-weight:900;margin-bottom:20px;}
+.sha-handoff-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:20px 24px;text-align:left;max-width:680px;margin:0 auto 24px;}
+.sha-handoff-card p{color:rgba(255,255,255,.9);font-size:14px;line-height:1.7;margin-bottom:12px;}
+.sha-handoff-card p:last-child{margin-bottom:0;}
+.sha-handoff-card .sha-scale-mini{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.sha-handoff-card .sha-sm{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.85);}
+.sha-handoff-card .sha-sm span{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;}
+.sha-handoff-divider{width:48px;height:3px;background:rgba(255,255,255,.2);border-radius:99px;margin:18px auto;}
+
+/* ── Buttons ── */
+.sha-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px 28px;border-radius:50px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .2s;width:100%;-webkit-tap-highlight-color:transparent;}
+.sha-btn-primary{background:var(--sha-teal);color:#fff;box-shadow:0 4px 18px rgba(61,191,191,.3);}
+.sha-btn-primary:hover{background:var(--sha-teal-d);transform:translateY(-1px);}
+.sha-btn-purple{background:var(--sha-purple);color:#fff;box-shadow:0 4px 18px rgba(123,63,160,.35);}
+.sha-btn-purple:hover{background:var(--sha-purple-d);transform:translateY(-1px);}
+.sha-btn-secondary{background:#fff;color:var(--sha-navy);border:2px solid var(--sha-border);}
+.sha-btn-secondary:hover{border-color:var(--sha-teal);color:var(--sha-teal);}
+.sha-btn-cc{background:#1A6BAF;color:#fff;font-size:16px;box-shadow:0 4px 16px rgba(26,107,175,.3);}
+.sha-btn-row{display:flex;gap:10px;margin-top:18px;}
+.sha-btn-row .sha-btn{flex:1;}
+
+/* ── Section headers ── */
+.sha-sec-hdr{border-radius:12px 12px 0 0;padding:18px 24px;display:flex;align-items:center;gap:12px;}
+.sha-sec-hdr.sha-gold{background:var(--sha-gold);}
+.sha-sec-hdr.sha-blue{background:var(--sha-blue);}
+.sha-sec-hdr.sha-green{background:var(--sha-green);}
+.sha-sec-hdr.sha-purple{background:var(--sha-purple);}
+.sha-sec-hdr h2{color:#fff;font-size:19px;font-weight:800;}
+.sha-sec-hdr p{color:rgba(255,255,255,.8);font-size:12px;margin-top:2px;}
+.sha-sec-hdr .sha-icon{font-size:28px;}
+
+/* ── Questions ── */
+.sha-qwrap{background:#fff;border-radius:0 0 12px 12px;border:1px solid var(--sha-border);border-top:none;overflow:hidden;margin-bottom:20px;}
+.sha-qi{padding:28px 28px;border-bottom:1px solid #F0EDE4;}
+.sha-qi:last-child{border-bottom:none;}
+.sha-qnum{font-size:18px;font-weight:800;letter-spacing:.04em;margin-bottom:8px;line-height:1.2;}
+.sha-qnum.sha-gold{color:var(--sha-gold);}
+.sha-qnum.sha-blue{color:var(--sha-blue);}
+.sha-qnum.sha-green{color:var(--sha-green);}
+.sha-qnum.sha-purple{color:var(--sha-purple);}
+.sha-qtext{font-size:15px;color:#444;line-height:1.7;margin-bottom:18px;font-weight:400;}
+.sha-likert{display:flex;gap:8px;}
+.sha-lb{flex:1;aspect-ratio:1;border:2px solid var(--sha-border);border-radius:10px;background:#fff;font-size:18px;font-weight:800;color:#BBB;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;min-height:62px;}
+.sha-lb:hover{border-color:#AAA;color:#666;transform:scale(1.05);}
+.sha-lb.s1{background:#2E8B57;border-color:#2E8B57;color:#fff;transform:scale(1.07);}
+.sha-lb.s2{background:#7ABF7A;border-color:#7ABF7A;color:#fff;transform:scale(1.07);}
+.sha-lb.s3{background:#D4A500;border-color:#D4A500;color:#fff;transform:scale(1.07);}
+.sha-lb.s4{background:#E07050;border-color:#E07050;color:#fff;transform:scale(1.07);}
+.sha-lb.s5{background:#CC2222;border-color:#CC2222;color:#fff;transform:scale(1.07);}
+.sha-llabels{display:flex;justify-content:space-between;margin-top:8px;}
+.sha-llabels span{font-size:11px;color:var(--sha-lgray);}
+
+/* ── Warning ── */
+.sha-warn{background:#FFF3E0;border:1px solid #FFB74D;border-radius:8px;padding:10px 14px;font-size:12px;color:#E65100;margin-top:8px;display:none;}
+.sha-warn.sha-show{display:block;}
+
+/* ── Friend name input on handoff ── */
+.sha-friend-name-form{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:16px 18px;max-width:400px;margin:0 auto 20px;}
+.sha-friend-name-form label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.7);margin-bottom:6px;}
+.sha-friend-name-form input{width:100%;padding:11px 14px;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;background:rgba(255,255,255,.15);color:#fff;font-size:16px;font-weight:600;outline:none;transition:border-color .2s;}
+.sha-friend-name-form input::placeholder{color:rgba(255,255,255,.4);}
+.sha-friend-name-form input:focus{border-color:rgba(255,255,255,.6);}
+.sha-warn-handoff{background:rgba(255,100,0,.2);border:1px solid rgba(255,150,50,.5);border-radius:8px;padding:9px 14px;font-size:12px;color:#ffd0a0;margin:8px auto 0;max-width:400px;display:none;}
+.sha-warn-handoff.sha-show{display:block;}
+
+/* ── Results ── */
+.sha-chart-card{background:#fff;border-radius:12px;padding:28px 24px;margin:20px 0;border:1px solid var(--sha-border);text-align:center;}
+.sha-chart-card h3{font-size:17px;color:var(--sha-navy);font-weight:700;margin-bottom:5px;}
+.sha-chart-card p{font-size:13px;color:var(--sha-lgray);margin-bottom:18px;}
+
+/* ── Score cards ── */
+.sha-score-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;}
+.sha-sc{border-radius:12px;padding:18px 10px;text-align:center;}
+.sha-sc.sha-gold{background:var(--sha-gold-l);border:2px solid var(--sha-gold);}
+.sha-sc.sha-blue{background:#EBF3FB;border:2px solid var(--sha-blue);}
+.sha-sc.sha-green{background:#EBF6EE;border:2px solid var(--sha-green);}
+.sha-sc .sha-rname2{font-size:9px;font-weight:700;letter-spacing:.05em;margin-bottom:8px;}
+.sha-sc.sha-gold .sha-rname2{color:var(--sha-gold);}
+.sha-sc.sha-blue .sha-rname2{color:var(--sha-blue);}
+.sha-sc.sha-green .sha-rname2{color:var(--sha-green);}
+.sha-sc .sha-avgs{display:flex;justify-content:center;gap:10px;}
+.sha-sc .sha-av{display:flex;flex-direction:column;align-items:center;}
+.sha-sc .sha-av-num{font-size:26px;font-weight:900;line-height:1;}
+.sha-sc.sha-gold .sha-av-num.self{color:var(--sha-gold);}
+.sha-sc.sha-blue .sha-av-num.self{color:var(--sha-blue);}
+.sha-sc.sha-green .sha-av-num.self{color:var(--sha-green);}
+.sha-sc .sha-av-num.friend{color:var(--sha-purple);}
+.sha-sc .sha-av-lbl{font-size:9px;color:var(--sha-lgray);margin-top:4px;}
+.sha-sc .sha-av-div{width:1px;background:var(--sha-border);align-self:stretch;margin:2px 0;}
+
+/* ── Comparison table ── */
+.sha-cmp-card{background:#fff;border-radius:12px;overflow:hidden;margin:18px 0;border:1px solid var(--sha-border);}
+.sha-cmp-hdr{background:linear-gradient(90deg,var(--sha-purple),var(--sha-purple-d));padding:16px 20px;display:flex;align-items:center;gap:10px;}
+.sha-cmp-hdr h3{color:#fff;font-size:15px;font-weight:800;}
+.sha-cmp-col-hdrs{display:grid;grid-template-columns:1fr 40px 40px 48px;gap:4px;padding:8px 20px 6px;background:#faf9f5;border-bottom:1px solid var(--sha-border);}
+.sha-cmp-col-hdrs span{font-size:10px;font-weight:700;letter-spacing:.04em;text-align:center;color:var(--sha-lgray);}
+.sha-cmp-col-hdrs span:first-child{text-align:left;}
+.sha-cmp-sec-lbl{font-size:11px;font-weight:700;letter-spacing:.06em;padding:8px 20px;color:#fff;}
+.sha-cmp-sec-lbl.sha-gold{background:var(--sha-gold);}
+.sha-cmp-sec-lbl.sha-blue{background:var(--sha-blue);}
+.sha-cmp-sec-lbl.sha-green{background:var(--sha-green);}
+.sha-cmp-row{display:grid;grid-template-columns:1fr 40px 40px 48px;align-items:center;gap:4px;padding:12px 20px;border-bottom:1px solid #f5f2ea;font-size:13px;}
+.sha-cmp-row:last-child{border-bottom:none;}
+.sha-cmp-row .sha-spoke{color:#333;line-height:1.4;}
+.sha-cmp-row .sha-sc2{text-align:center;font-weight:900;font-size:16px;}
+.sha-cmp-row .sha-diff{text-align:center;font-size:11px;font-weight:700;border-radius:5px;padding:3px 4px;}
+.sha-diff.pos{background:#FFEAEA;color:#CC2222;}
+.sha-diff.neg{background:#EBF6EE;color:#2E8B57;}
+.sha-diff.zero{background:#F5F2EA;color:#888;}
+.sha-cmp-legend{display:flex;gap:12px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid #f0ede4;background:#faf9f5;}
+.sha-cmp-legend span{font-size:11px;color:#555;display:flex;align-items:center;gap:5px;}
+.sha-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;}
+
+/* ── Insight ── */
+.sha-insight{background:#fff;border-radius:12px;padding:24px 28px;margin:18px 0;border:1px solid var(--sha-border);}
+.sha-insight h3{font-size:15px;font-weight:700;color:var(--sha-navy);margin-bottom:10px;}
+.sha-insight p{font-size:14px;color:#333;line-height:1.75;margin-bottom:10px;}
+.sha-insight p:last-child{margin-bottom:0;}
+
+/* ── What To Do Next ── */
+.sha-next{background:#fff;border-radius:12px;overflow:hidden;margin:18px 0;border:1px solid var(--sha-border);}
+.sha-next-hdr{background:linear-gradient(135deg,var(--sha-navy) 0%,#2a2a8e 100%);padding:16px 22px;display:flex;align-items:center;gap:10px;}
+.sha-next-hdr h3{color:#fff;font-size:15px;font-weight:800;}
+.sha-next-hdr span{font-size:22px;}
+.sha-next-steps{padding:6px 0;}
+.sha-ns{display:flex;gap:14px;padding:16px 22px;border-bottom:1px solid #f0ede4;align-items:flex-start;}
+.sha-ns:last-child{border-bottom:none;}
+.sha-ns-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;margin-top:2px;}
+.sha-ns-num.gold{background:var(--sha-gold);}
+.sha-ns-num.blue{background:var(--sha-blue);}
+.sha-ns-num.green{background:var(--sha-green);}
+.sha-ns-num.purple{background:var(--sha-purple);}
+.sha-ns-content h4{font-size:13px;font-weight:800;color:var(--sha-navy);margin-bottom:4px;}
+.sha-ns-content p{font-size:13px;color:#444;line-height:1.65;}
+
+/* ── Church Center CTA ── */
+.sha-cc-card{background:var(--sha-navy);border-radius:12px;padding:28px 24px;margin:20px 0;text-align:center;}
+.sha-cc-card h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:8px;}
+.sha-cc-card p{color:rgba(255,255,255,.7);font-size:14px;margin-bottom:20px;line-height:1.6;}
+
+/* ── Action row ── */
+.sha-act-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0;}
+@media(max-width:360px){.sha-act-row{grid-template-columns:1fr;}}
+
+/* ── Blindspot / Before You Hand It Over screen ── */
+.sha-blindspot-card{background:#fff;border-radius:12px;padding:22px 24px;margin:16px 0;border:1px solid var(--sha-border);}
+.sha-blindspot-card.sha-bs-warning{background:#FFFBF0;border-color:#F0C040;}
+.sha-blindspot-card.sha-bs-receive{background:#F0F7FF;border-color:#A0C8F0;}
+.sha-bs-icon{font-size:28px;margin-bottom:10px;}
+.sha-blindspot-card h3{font-size:15px;font-weight:800;color:var(--sha-navy);margin-bottom:10px;}
+.sha-blindspot-card p{font-size:14px;color:#333;line-height:1.75;margin-bottom:10px;}
+.sha-blindspot-card p:last-child{margin-bottom:0;}
+.sha-blindspot-card em{font-style:italic;color:var(--sha-navy);}
+.sha-bs-tip{background:rgba(26,107,175,.06);border-left:3px solid var(--sha-blue);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:12px;}
+.sha-bs-tip p{font-size:13px;color:#1a4a70;line-height:1.65;margin-bottom:0;}
+.sha-bs-tip strong{color:var(--sha-navy);}
+.sha-blindspot-verse{background:linear-gradient(160deg,var(--sha-dark) 0%,#4a3820 100%);border-radius:12px;padding:20px 24px;margin:16px 0;text-align:center;}
+.sha-blindspot-verse p{color:rgba(255,255,255,.9);font-size:15px;font-style:italic;line-height:1.65;margin-bottom:6px;}
+.sha-blindspot-verse span{color:var(--sha-teal);font-size:12px;font-weight:700;letter-spacing:.06em;}
+.sha-blindspot-prompt{background:var(--sha-teal);border-radius:12px;padding:18px 22px;margin:16px 0;text-align:center;}
+.sha-blindspot-prompt p{color:#fff;font-size:14px;line-height:1.7;font-weight:500;}
+
+/* ── Print ── */
+@media print{
+  .sha-btn-row,.sha-act-row,.sha-cc-card,.sha-screen:not(#sha-s9){display:none!important;}
+  #sha-s9{display:block!important;}
+}
+
+/* ── Desktop — open full-page column ── */
+@media(min-width:600px){
+  #sha-app{font-size:18px;}
+  .sha-hero,.sha-handoff{padding:72px 48px;}
+  .sha-hero h2,.sha-handoff h2{font-size:40px;}
+  .sha-hero .sha-badge,.sha-handoff .sha-badge{font-size:80px;margin-bottom:20px;}
+  .sha-hero .sha-tagline{font-size:14px;}
+  .sha-hero .sha-sub{font-size:14px;letter-spacing:.15em;}
+  .sha-verse{max-width:560px;}
+  .sha-verse p{font-size:15px;}
+  .sha-body{padding:52px 48px 72px;max-width:900px;}
+  .sha-rhythms{gap:20px;margin:28px 0;}
+  .sha-rc{padding:28px 16px;}
+  .sha-rc .sha-ri{font-size:40px;margin-bottom:12px;}
+  .sha-rc .sha-rn{font-size:14px;}
+  .sha-rc .sha-rd{font-size:13px;}
+  .sha-legend{padding:30px 40px;margin:24px 0;}
+  .sha-legend h3{font-size:17px;margin-bottom:18px;}
+  .sha-srow{padding:10px 0;}
+  .sha-snum{width:38px;height:38px;font-size:16px;}
+  .sha-srow p{font-size:16px;}
+  .sha-form{padding:32px 40px;margin:24px 0;}
+  .sha-form h3{font-size:18px;margin-bottom:20px;}
+  .sha-ff label{font-size:12px;}
+  .sha-ff input{padding:15px 20px;font-size:17px;border-radius:10px;}
+  .sha-btn{font-size:17px;padding:18px 36px;}
+  .sha-btn-row{gap:14px;margin-top:24px;}
+  .sha-sec-hdr{padding:24px 36px;}
+  .sha-sec-hdr h2{font-size:26px;}
+  .sha-sec-hdr p{font-size:14px;}
+  .sha-sec-hdr .sha-icon{font-size:36px;}
+  .sha-qi{padding:34px 40px;}
+  .sha-qnum{font-size:22px;margin-bottom:10px;}
+  .sha-qtext{font-size:16px;margin-bottom:22px;line-height:1.75;}
+  .sha-lb{font-size:24px;width:90px;height:90px;flex:0 0 90px;aspect-ratio:unset;border-radius:16px;min-height:unset;}
+  .sha-likert{gap:14px;justify-content:flex-start;}
+  .sha-llabels{margin-top:10px;}
+  .sha-llabels span{font-size:12px;}
+  .sha-chart-card{padding:40px;}
+  .sha-chart-card h3{font-size:24px;margin-bottom:8px;}
+  .sha-chart-card p{font-size:15px;margin-bottom:22px;}
+  #sha-canvas{width:560px!important;height:560px!important;max-width:100%;}
+  .sha-score-cards{gap:18px;margin:26px 0;}
+  .sha-sc{padding:24px 16px;border-radius:16px;}
+  .sha-sc .sha-rname2{font-size:11px;margin-bottom:10px;}
+  .sha-sc .sha-av-num{font-size:38px;}
+  .sha-sc .sha-av-lbl{font-size:12px;margin-top:5px;}
+  .sha-cmp-hdr{padding:20px 28px;}
+  .sha-cmp-hdr h3{font-size:18px;}
+  .sha-cmp-col-hdrs{padding:12px 28px 8px;}
+  .sha-cmp-col-hdrs span{font-size:12px;}
+  .sha-cmp-sec-lbl{padding:10px 28px;font-size:12px;}
+  .sha-cmp-row{padding:15px 28px;font-size:15px;}
+  .sha-cmp-row .sha-sc2{font-size:20px;}
+  .sha-cmp-row .sha-diff{font-size:12px;padding:4px 6px;}
+  .sha-cmp-legend{padding:16px 28px;gap:18px;}
+  .sha-cmp-legend span{font-size:13px;}
+  .sha-insight{padding:32px 40px;margin:24px 0;}
+  .sha-insight h3{font-size:20px;margin-bottom:12px;}
+  .sha-insight p{font-size:16px;line-height:1.8;}
+  .sha-next{margin:24px 0;border-radius:14px;}
+  .sha-next-hdr{padding:20px 32px;}
+  .sha-next-hdr h3{font-size:17px;}
+  .sha-next-hdr span{font-size:26px;}
+  .sha-ns{padding:20px 32px;gap:18px;}
+  .sha-ns-num{width:42px;height:42px;font-size:16px;}
+  .sha-ns-content h4{font-size:15px;margin-bottom:6px;}
+  .sha-ns-content p{font-size:15px;line-height:1.7;}
+  .sha-blindspot-card{padding:32px 40px;margin:22px 0;}
+  .sha-blindspot-card h3{font-size:19px;margin-bottom:14px;}
+  .sha-blindspot-card p{font-size:16px;line-height:1.8;}
+  .sha-bs-icon{font-size:36px;margin-bottom:14px;}
+  .sha-bs-tip{padding:18px 24px;margin-top:18px;}
+  .sha-bs-tip p{font-size:15px;}
+  .sha-blindspot-verse{padding:32px 48px;margin:22px 0;}
+  .sha-blindspot-verse p{font-size:20px;}
+  .sha-blindspot-prompt{padding:26px 40px;margin:22px 0;}
+  .sha-blindspot-prompt p{font-size:17px;line-height:1.75;}
+  .sha-cc-card{padding:40px;}
+  .sha-cc-card h3{font-size:26px;margin-bottom:12px;}
+  .sha-cc-card p{font-size:17px;margin-bottom:26px;}
+  .sha-handoff-card{padding:32px 40px;max-width:700px;}
+  .sha-handoff-card p{font-size:16px;line-height:1.8;}
+  .sha-handoff-card .sha-sm{font-size:14px;}
+  .sha-friend-name-form{padding:28px 40px;max-width:560px;}
+  .sha-friend-name-form label{font-size:12px;}
+  .sha-friend-name-form input{font-size:20px;padding:16px 22px;}
+  .sha-warn{font-size:14px;padding:14px 20px;}
+  .sha-warn-handoff{font-size:14px;padding:12px 20px;}
+  .sha-prog-wrap{height:7px;}
+  .sha-prog-fill{height:7px;}
+  .sha-step-dot{width:11px;height:11px;}
+  .sha-steps{gap:10px;padding:18px 0 6px;}
+  .sha-phase-label{font-size:11px;padding:4px 0 10px;}
+}
+@media(min-width:1024px){
+  .sha-hero,.sha-handoff{padding:88px 80px;}
+  .sha-hero h2,.sha-handoff h2{font-size:48px;}
+  .sha-body{padding:60px 80px 88px;max-width:1000px;}
+  .sha-qi{padding:36px 48px;}
+  .sha-qtext{font-size:17px;}
+  .sha-lb{width:96px;height:96px;flex:0 0 96px;font-size:26px;}
+  #sha-canvas{width:600px!important;height:600px!important;}
+  #sha-s1 .sha-body,#sha-s2 .sha-body,#sha-s3 .sha-body,
+  #sha-s6 .sha-body,#sha-s7 .sha-body,#sha-s8 .sha-body{
+    display:grid;grid-template-columns:1fr 1fr;gap:0 56px;align-items:start;
+  }
+  #sha-s1 .sha-sec-hdr,#sha-s2 .sha-sec-hdr,#sha-s3 .sha-sec-hdr,
+  #sha-s6 .sha-sec-hdr,#sha-s7 .sha-sec-hdr,#sha-s8 .sha-sec-hdr{grid-column:1/-1;}
+  #sha-s1 .sha-qwrap,#sha-s2 .sha-qwrap,#sha-s3 .sha-qwrap,
+  #sha-s6 .sha-qwrap,#sha-s7 .sha-qwrap,#sha-s8 .sha-qwrap{grid-column:1/-1;}
+  #sha-s1 .sha-btn-row,#sha-s2 .sha-btn-row,#sha-s3 .sha-btn-row,
+  #sha-s6 .sha-btn-row,#sha-s7 .sha-btn-row,#sha-s8 .sha-btn-row{grid-column:1/-1;}
+  #sha-s1 .sha-warn,#sha-s2 .sha-warn,#sha-s3 .sha-warn,
+  #sha-s6 .sha-warn,#sha-s7 .sha-warn,#sha-s8 .sha-warn{grid-column:1/-1;}
+}
+</style>
+
+<div id="sha-app">
+
+  <!-- Progress & step dots -->
+  <div class="sha-prog-wrap"><div class="sha-prog-fill" id="sha-prog" style="width:11%"></div></div>
+  <div class="sha-steps" id="sha-dots">
+    <!-- dots 0–3: participant phase -->
+    <div class="sha-step-dot sha-active" id="sha-dot-0"></div>
+    <div class="sha-step-dot" id="sha-dot-1"></div>
+    <div class="sha-step-dot" id="sha-dot-2"></div>
+    <div class="sha-step-dot" id="sha-dot-3"></div>
+    <!-- dot 4: handoff -->
+    <div class="sha-step-dot" id="sha-dot-4" style="background:#c9a0e8;opacity:.4;"></div>
+    <!-- dots 5–7: friend phase -->
+    <div class="sha-step-dot" id="sha-dot-6"></div>
+    <div class="sha-step-dot" id="sha-dot-7"></div>
+    <div class="sha-step-dot" id="sha-dot-8"></div>
+    <!-- dot 8: results -->
+    <div class="sha-step-dot" id="sha-dot-9"></div>
+  </div>
+  <div class="sha-phase-label teal" id="sha-phase-lbl">YOUR ASSESSMENT</div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 0 — PARTICIPANT INTRO
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen sha-active" id="sha-s0">
+    <div class="sha-hero">
+      <div class="sha-badge">🎯</div>
+      <div class="sha-sub">B U L L S E Y E &nbsp; E D I T I O N</div>
+      <h2>Spiritual Health Assessment</h2>
+      <div class="sha-tagline">HOPE &bull; HEALING &bull; PURPOSE</div>
+      <div class="sha-verse">
+        <p>"Examine yourselves to see if your faith is genuine. Test yourselves…"</p>
+        <span>— 2 Corinthians 13:5</span>
+      </div>
+    </div>
+    <div class="sha-body">
+      <div class="sha-rhythms">
+        <div class="sha-rc sha-gold"><div class="sha-ri">🙏</div><div class="sha-rn">LOVE GOD</div><div class="sha-rd">Communion with God</div></div>
+        <div class="sha-rc sha-blue"><div class="sha-ri">🤝</div><div class="sha-rn">LOVE NEIGHBOR</div><div class="sha-rd">Community with Believers</div></div>
+        <div class="sha-rc sha-green"><div class="sha-ri">🌍</div><div class="sha-rn">GO: EVANGELISM</div><div class="sha-rd">Co-Mission with the Spirit</div></div>
+      </div>
+      <div class="sha-legend">
+        <h3>How to Answer — Lower = Closer to Christ</h3>
+        <div class="sha-srow"><div class="sha-snum" style="background:#2E8B57">1</div><p><strong>Fully describes me</strong> — living this out <small>(closest to center)</small></p></div>
+        <div class="sha-srow"><div class="sha-snum" style="background:#7ABF7A">2</div><p>This mostly describes me</p></div>
+        <div class="sha-srow"><div class="sha-snum" style="background:#D4A500">3</div><p>Somewhat — still growing here</p></div>
+        <div class="sha-srow"><div class="sha-snum" style="background:#E07050">4</div><p>Just beginning to work on this</p></div>
+        <div class="sha-srow"><div class="sha-snum" style="background:#CC2222">5</div><p><strong>Not yet</strong> — significant room to grow <small>(furthest from center)</small></p></div>
+      </div>
+      <div class="sha-form">
+        <h3>Let's get started</h3>
+        <div class="sha-frow">
+          <div class="sha-ff"><label>YOUR FIRST NAME</label><input type="text" id="sha-first" placeholder="First name" autocomplete="given-name"/></div>
+          <div class="sha-ff"><label>YOUR LAST NAME</label><input type="text" id="sha-last" placeholder="Last name" autocomplete="family-name"/></div>
+        </div>
+        <div class="sha-frow">
+          <div class="sha-ff sha-full"><label>EMAIL</label><input type="email" id="sha-email" placeholder="your@email.com" autocomplete="email"/></div>
+        </div>
+      </div>
+      <div id="sha-warn-intro" class="sha-warn">Please enter your name and email to continue.</div>
+      <button class="sha-btn sha-btn-primary" onclick="shaStart()">Begin My Assessment &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 1 — PARTICIPANT: LOVE GOD
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s1">
+    <div class="sha-body">
+      <div class="sha-sec-hdr sha-gold"><div class="sha-icon">🙏</div><div><h2>Love God</h2><p>Communion with God &nbsp;•&nbsp; Questions 1–7</p></div></div>
+      <div class="sha-qwrap" id="sha-qgod"></div>
+      <div id="sha-warn-god" class="sha-warn">Please answer all questions before continuing.</div>
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(0)">← Back</button>
+        <button class="sha-btn sha-btn-primary" onclick="shaNextSelf('god',2)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 2 — PARTICIPANT: LOVE NEIGHBOR
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s2">
+    <div class="sha-body">
+      <div class="sha-sec-hdr sha-blue"><div class="sha-icon">🤝</div><div><h2>Love Neighbor</h2><p>Community with Believers &nbsp;•&nbsp; Questions 8–14</p></div></div>
+      <div class="sha-qwrap" id="sha-qnbr"></div>
+      <div id="sha-warn-nbr" class="sha-warn">Please answer all questions before continuing.</div>
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(1)">← Back</button>
+        <button class="sha-btn sha-btn-primary" onclick="shaNextSelf('nbr',3)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 3 — PARTICIPANT: GO EVANGELISM
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s3">
+    <div class="sha-body">
+      <div class="sha-sec-hdr sha-green"><div class="sha-icon">🌍</div><div><h2>Go: Evangelism</h2><p>Co-Mission with the Holy Spirit &nbsp;•&nbsp; Questions 15–21</p></div></div>
+      <div class="sha-qwrap" id="sha-qgo"></div>
+      <div id="sha-warn-go" class="sha-warn">Please answer all questions before continuing.</div>
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(2)">← Back</button>
+        <button class="sha-btn sha-btn-primary" onclick="shaNextSelf('go',4)">Hand Off Device →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 4 — WHY A FRIEND?
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s4">
+    <div class="sha-hero">
+      <div class="sha-badge">🪞</div>
+      <div class="sha-sub">O N E &nbsp; M O R E &nbsp; S T E P</div>
+      <h2>Before You Hand It Over</h2>
+      <p>A word about why this part matters</p>
+    </div>
+    <div class="sha-body">
+
+      <div class="sha-blindspot-card">
+        <div class="sha-bs-icon">🦯</div>
+        <h3>We All Have Blind Spots</h3>
+        <p>No matter how sincere we are, none of us can fully see ourselves the way others see us — or the way God sees us. Blind spots aren't a sign of failure. They're a sign of being human.</p>
+        <p>The question isn't whether you have them. The question is whether you're humble enough to let someone help you find them. A trusted friend or spouse has watched your life up close. That kind of perspective is rare — and it's a gift worth receiving.</p>
+      </div>
+
+      <div class="sha-blindspot-card sha-bs-warning">
+        <div class="sha-bs-icon">⚠️</div>
+        <h3>Feeling Healthy Can Be Its Own Risk</h3>
+        <p>One of the quietest spiritual dangers is believing we are doing better than we actually are. Jesus reserved some of His strongest words for people who were confident in their own righteousness — while something important was quietly slipping in their hearts.</p>
+        <p>A friend who loves you enough to be honest isn't a threat to your spiritual health. They're one of God's greatest tools for protecting it.</p>
+      </div>
+
+      <div class="sha-blindspot-card sha-bs-receive">
+        <div class="sha-bs-icon">👂</div>
+        <h3>Receive It Well</h3>
+        <p>You invited this. That took humility — and it means their honesty deserves to be honored, not defended against. When you sit down together to look at the results, your one job is to listen. You don't have to agree with everything. But resist the urge to explain, justify, or correct.</p>
+        <p>If something catches you off guard or stings a little, try this instead of pushing back:</p>
+        <div class="sha-bs-tip">
+          <p><strong>"Help me understand — how did you come to that conclusion?"</strong></p>
+          <p>That one question changes the whole conversation. It tells your friend their perspective matters to you. And it opens a door to something you genuinely couldn't see on your own.</p>
+        </div>
+      </div>
+
+      <div class="sha-blindspot-verse">
+        <p>"The purposes of a person's heart are deep waters, but one who has insight draws them out."</p>
+        <span>— PROVERBS 20:5</span>
+      </div>
+
+      <div class="sha-blindspot-prompt">
+        <p>When you're ready, hand your device to the friend or spouse you brought with you. Their honest, prayerful perspective — alongside yours — will give you the clearest picture of where God is calling you to grow.</p>
+      </div>
+
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(3)">← Back</button>
+        <button class="sha-btn sha-btn-primary" onclick="shaGo(5)">I'm Ready — Hand It Over 🤝</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 5 — HANDOFF
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s5">
+    <div class="sha-handoff">
+      <div class="sha-badge">🤝</div>
+      <div class="sha-to">NOW HAND THE DEVICE TO</div>
+      <div class="sha-handoff-name" id="sha-ho-pname"></div>
+      <div class="sha-handoff-divider"></div>
+      <div class="sha-handoff-card">
+        <p><strong style="color:#fff;">You have a rare privilege.</strong> The person who handed you this device has completed their Spiritual Health Assessment and trusts you enough to ask for your perspective.</p>
+        <p>You'll answer the same 21 questions — but about <strong id="sha-ho-pname2" style="color:#fff;"></strong>. Answer based on what you honestly observe in their life. Be honest, be prayerful, and be kind.</p>
+        <p>Use the same scale:</p>
+        <div class="sha-scale-mini">
+          <div class="sha-sm"><span style="background:#2E8B57">1</span> Fully describes them</div>
+          <div class="sha-sm"><span style="background:#7ABF7A">2</span> Mostly</div>
+          <div class="sha-sm"><span style="background:#D4A500">3</span> Somewhat</div>
+          <div class="sha-sm"><span style="background:#E07050">4</span> Starting</div>
+          <div class="sha-sm"><span style="background:#CC2222">5</span> Not yet</div>
+        </div>
+      </div>
+      <div class="sha-friend-name-form">
+        <label>YOUR NAME (FRIEND OR SPOUSE)</label>
+        <input type="text" id="sha-f-first" placeholder="Enter your first name" autocomplete="given-name"/>
+      </div>
+      <div id="sha-warn-handoff" class="sha-warn-handoff">Please enter your name to continue.</div>
+      <button class="sha-btn sha-btn-purple" style="max-width:400px;margin:0 auto;" onclick="shaHandoffNext()">I'm Ready — Begin My Section →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 6 — FRIEND: LOVE GOD
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s6">
+    <div class="sha-body">
+      <div class="sha-sec-hdr sha-purple"><div class="sha-icon">🙏</div><div><h2>Love God</h2><p id="sha-f-sec1-sub">Friend's perspective &nbsp;•&nbsp; Questions 1–7</p></div></div>
+      <div class="sha-qwrap" id="sha-fqgod"></div>
+      <div id="sha-warn-fgod" class="sha-warn">Please answer all questions before continuing.</div>
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(5)">← Back</button>
+        <button class="sha-btn sha-btn-purple" onclick="shaNextFriend('god',7)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 6 — FRIEND: LOVE NEIGHBOR
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s7">
+    <div class="sha-body">
+      <div class="sha-sec-hdr sha-purple"><div class="sha-icon">🤝</div><div><h2>Love Neighbor</h2><p id="sha-f-sec2-sub">Friend's perspective &nbsp;•&nbsp; Questions 8–14</p></div></div>
+      <div class="sha-qwrap" id="sha-fqnbr"></div>
+      <div id="sha-warn-fnbr" class="sha-warn">Please answer all questions before continuing.</div>
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(6)">← Back</button>
+        <button class="sha-btn sha-btn-purple" onclick="shaNextFriend('nbr',8)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 7 — FRIEND: GO EVANGELISM
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s8">
+    <div class="sha-body">
+      <div class="sha-sec-hdr sha-purple"><div class="sha-icon">🌍</div><div><h2>Go: Evangelism</h2><p id="sha-f-sec3-sub">Friend's perspective &nbsp;•&nbsp; Questions 15–21</p></div></div>
+      <div class="sha-qwrap" id="sha-fqgo"></div>
+      <div id="sha-warn-fgo" class="sha-warn">Please answer all questions before continuing.</div>
+      <div class="sha-btn-row">
+        <button class="sha-btn sha-btn-secondary" onclick="shaGo(7)">← Back</button>
+        <button class="sha-btn sha-btn-purple" onclick="shaFinish()">See Combined Bullseye 🎯</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCREEN 8 — COMBINED RESULTS
+  ════════════════════════════════════════════════════════════ -->
+  <div class="sha-screen" id="sha-s9">
+    <div class="sha-hero sha-purple-hero" style="border-bottom-color:var(--sha-purple);">
+      <div style="color:#c9a0e8;font-size:14px;font-weight:700;margin-bottom:4px;" id="sha-res-names"></div>
+      <h2>Combined Bullseye</h2>
+      <p>Teal = self &nbsp;|&nbsp; Purple dashed = friend/spouse &nbsp;•&nbsp; Lower = closer to center = more like Christ</p>
+    </div>
+    <div class="sha-body">
+
+      <div class="sha-chart-card">
+        <h3>Your Bullseye</h3>
+        <p>Each spoke = one question. Solid teal = <span id="sha-legend-p"></span> &nbsp;|&nbsp; Dashed purple = <span id="sha-legend-f"></span></p>
+        <canvas id="sha-canvas" width="340" height="340" style="max-width:100%;"></canvas>
+      </div>
+
+      <div class="sha-score-cards" id="sha-score-cards"></div>
+
+      <div class="sha-cmp-card">
+        <div class="sha-cmp-hdr"><span style="font-size:20px;">💜</span><h3 id="sha-cmp-title">Side-by-Side</h3></div>
+        <div class="sha-cmp-col-hdrs">
+          <span>Spoke</span>
+          <span id="sha-cmp-p-hdr"></span>
+          <span id="sha-cmp-f-hdr"></span>
+          <span>Diff</span>
+        </div>
+        <div id="sha-cmp-body"></div>
+        <div class="sha-cmp-legend">
+          <span><span class="sha-dot" style="background:var(--sha-teal)"></span> <span id="sha-leg-p2"></span></span>
+          <span><span class="sha-dot" style="background:var(--sha-purple)"></span> <span id="sha-leg-f2"></span></span>
+          <span><span class="sha-dot" style="background:#CC2222"></span> Friend scored higher</span>
+          <span><span class="sha-dot" style="background:#2E8B57"></span> Friend scored lower</span>
+        </div>
+      </div>
+
+      <div class="sha-insight">
+        <h3 id="sha-ins-title"></h3>
+        <div id="sha-ins-body"></div>
+      </div>
+
+      <div class="sha-next">
+        <div class="sha-next-hdr"><span>🗺️</span><h3>What To Do Next</h3></div>
+        <div class="sha-next-steps">
+          <div class="sha-ns">
+            <div class="sha-ns-num gold">1</div>
+            <div class="sha-ns-content">
+              <h4>Sit with it — don't react to it</h4>
+              <p>Before any conversation, give yourself a day or two to reflect on the results honestly. Look at the spokes where your scores and your friend's scores are furthest apart. Ask God what He wants you to see there, not what you want to defend.</p>
+            </div>
+          </div>
+          <div class="sha-ns">
+            <div class="sha-ns-num blue">2</div>
+            <div class="sha-ns-content">
+              <h4>Have the conversation</h4>
+              <p>Sit down together — unhurried, not over a phone call — and walk through the comparison table. Let your friend share what they observed. Ask questions, not arguments. The goal is understanding, not winning. Remember: <em>"Help me understand — how did you come to that conclusion?"</em></p>
+            </div>
+          </div>
+          <div class="sha-ns">
+            <div class="sha-ns-num green">3</div>
+            <div class="sha-ns-content">
+              <h4>Pick one spoke and take a Crawl step</h4>
+              <p>Don't try to fix everything. Look at your highest-scoring rhythm and choose one spoke that feels most pressing. In the Bullseye booklet, find the Crawl step for that spoke and commit to it for the next 30 days. Small and consistent beats ambitious and abandoned every time.</p>
+            </div>
+          </div>
+          <div class="sha-ns">
+            <div class="sha-ns-num purple">4</div>
+            <div class="sha-ns-content">
+              <h4>Find a Spiritual Partner</h4>
+              <p>The person who just completed this with you might be the right person — or it might be someone else in your Smaller Gathering. Either way, share your one focus area with them and ask them to check in with you at the 30-day mark. Progress without accountability tends to stall.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sha-cc-card">
+        <h3>🎉 Well done, <span id="sha-cc-name"></span>!</h3>
+        <p>Your results have been recorded. Click below to complete your registration and connect with a pastor who can walk alongside you both.</p>
+        <a id="sha-cc-link" href="https://alg.churchcenter.com/people/forms/1188000" target="_blank" class="sha-btn sha-btn-cc" style="display:flex;text-decoration:none;margin-bottom:10px;">Complete Registration at Church Center →</a>
+        <p style="font-size:11px;color:rgba(255,255,255,.4);">You'll be taken to our Church Center form to finish connecting with your pastor.</p>
+      </div>
+
+      <div class="sha-act-row">
+        <button class="sha-btn sha-btn-secondary" onclick="window.print()" style="font-size:13px;">🖨️ Print Results</button>
+        <button class="sha-btn sha-btn-secondary" onclick="shaReset()" style="font-size:13px;">🔄 Start Over</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #sha-app -->
+
+<script>
+(function(){
+var sc=document.createElement('script');
+sc.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+document.head.appendChild(sc);
+
+// ── Question data ───────────────────────────────────────────────────────────
+var QS={
+  god:[
+    {n:1, l:'Prayer',       q:'I prioritize time to regularly talk with God.',                                         fq:'This person prioritizes time to regularly talk with God.'},
+    {n:2, l:'Surrender',    q:'There is nothing in my life that I have not surrendered or held back from God.',         fq:'There is nothing in his/her life they have not surrendered to or held back from God.'},
+    {n:3, l:"God's Will",   q:"I believe I know God's will for my life and am striving to fulfill it.",                fq:"This person knows God's will for their life and is striving to fulfill it."},
+    {n:4, l:'Scripture',    q:"God's Word influences me more than popular culture.",                                    fq:"God's Word influences him/her more than popular culture."},
+    {n:5, l:'Self-Control', q:'I am not easily triggered and slow to get angry.',                                       fq:'He/She is not easily triggered and slow to get angry.'},
+    {n:6, l:'Forgiveness',  q:'I do not keep score of wrongs done to me or others I love.',                             fq:'This person does not keep score of wrongs done to them or others they love.'},
+    {n:7, l:'Healing',      q:'I actively seek God for healing in areas where sin or brokenness has impacted my life.', fq:'He/she actively seeks God for healing in areas where sin or brokenness has impacted their life.'},
+  ],
+  nbr:[
+    {n:8, l:'Servant Heart',  q:'I am willing to do anything God asks me to serve someone else.',                           fq:'This person is willing to do anything God asks them to serve someone else.'},
+    {n:9, l:'Humility',       q:'I have the attitude of Christ and consider others as more important than myself.',           fq:'He/she has the attitude of Christ and considers others as more important than themselves.'},
+    {n:10,l:'Reconciliation', q:'There is nothing in my relationships that is currently unresolved.',                        fq:'There is nothing in their relationships that is currently unresolved.'},
+    {n:11,l:'Spiritual Gifts',q:'I am currently serving others with the spiritual gifts and talents He has given me.',       fq:'This person is currently serving others with the spiritual gifts and talents God has given them.'},
+    {n:12,l:'Enemy Love',     q:'I love and care for those who have betrayed me as I do my closest friends.',                fq:'He/she loves and cares for those who have betrayed them as they do their closest friends.'},
+    {n:13,l:'Generosity',     q:'I give of my resources and expect nothing in return.',                                      fq:'This person gives of his/her resources and expects nothing in return.'},
+    {n:14,l:'Unity',          q:'I refuse to engage in gossip and instead protect unity in my relationships.',               fq:'He/she refuses to engage in gossip and instead protects unity in their relationships.'},
+  ],
+  go:[
+    {n:15,l:'Outreach',       q:'I look for opportunities to build relationships with those who do not know Jesus.',          fq:'He/she looks for opportunities to build relationships with those who do not know Jesus.'},
+    {n:16,l:'Intercession',   q:"I regularly pray for those who don't know Jesus.",                                           fq:"This person regularly prays for those who don't know Jesus."},
+    {n:17,l:'Witness',        q:'I am confident in my ability to share my faith.',                                             fq:'He/she is confident in their ability to share their faith.'},
+    {n:18,l:'Work as Witness',q:'I view how I carry myself in the marketplace as a way to proclaim the gospel.',               fq:'This person carries themselves in the marketplace as a way to proclaim the gospel.'},
+    {n:19,l:'Self-Denial',    q:'I understand what it means to regularly die to self.',                                         fq:'He/she understands what it means to regularly die to self.'},
+    {n:20,l:'Community',      q:'I look for ways to love and serve people in my community outside of church.',                 fq:'This person looks for ways to love and serve people in the community outside of church.'},
+    {n:21,l:'Gospel Sharing', q:'I intentionally share the gospel through my words and actions.',                              fq:"He/she forgives others and seeks forgiveness when needed, mirroring Jesus's message of reconciliation."},
+  ]
+};
+
+var SC_COLORS=['','#2E8B57','#7ABF7A','#D4A500','#E07050','#CC2222'];
+var SC_LABELS=['','Fully me','Mostly','Somewhat','Starting','Not yet'];
+var pScores={}, fScores={}, user={}, friendName='', chart=null;
+var TOTAL_STEPS=10;
+
+// ── Build self questions ────────────────────────────────────────────────────
+function buildQs(sec, containerId, colorClass, prefix){
+  var wrap=document.getElementById(containerId);
+  wrap.innerHTML='';
+  QS[sec].forEach(function(item){
+    var d=document.createElement('div');
+    d.className='sha-qi';
+    d.innerHTML=
+      '<div class="sha-qnum '+colorClass+'">Q'+item.n+' — '+item.l+'</div>'+
+      '<div class="sha-qtext">'+(prefix==='f'?item.fq:item.q)+'</div>'+
+      '<div class="sha-likert" id="'+prefix+'lk-'+item.n+'">'+
+        [1,2,3,4,5].map(function(v){
+          return '<button class="sha-lb" onclick="shaSetScore(\''+prefix+'\','+item.n+','+v+',this)">'+v+'</button>';
+        }).join('')+
+      '</div>'+
+      '<div class="sha-llabels"><span>← '+(prefix==='f'?'Fully them':'Fully me')+'</span><span>Not yet →</span></div>';
+    wrap.appendChild(d);
+  });
+}
+buildQs('god','sha-qgod','sha-gold','p');
+buildQs('nbr','sha-qnbr','sha-blue','p');
+buildQs('go', 'sha-qgo', 'sha-green','p');
+buildQs('god','sha-fqgod','sha-purple','f');
+buildQs('nbr','sha-fqnbr','sha-purple','f');
+buildQs('go', 'sha-fqgo', 'sha-purple','f');
+
+// ── Score ───────────────────────────────────────────────────────────────────
+window.shaSetScore=function(who,qn,val,btn){
+  var store=who==='p'?pScores:fScores;
+  var prefix=who==='p'?'plk':'flk';
+  store[qn]=val;
+  var row=document.getElementById(prefix+'-'+qn);
+  row.querySelectorAll('.sha-lb').forEach(function(b){
+    b.className='sha-lb';
+    if(parseInt(b.textContent)===val) b.classList.add('s'+val);
+  });
+  if(navigator.vibrate) navigator.vibrate(18);
+};
+
+// ── Navigation ──────────────────────────────────────────────────────────────
+function setStep(n){
+  document.querySelectorAll('#sha-app .sha-screen').forEach(function(s,i){
+    s.classList.toggle('sha-active',i===n);
+  });
+  document.getElementById('sha-prog').style.width=((n+1)/TOTAL_STEPS*100)+'%';
+
+  // Dots & progress color
+  var progEl=document.getElementById('sha-prog');
+  var phaseEl=document.getElementById('sha-phase-lbl');
+  var friendPhase=(n>=5&&n<=8);
+  progEl.className='sha-prog-fill'+(friendPhase?' sha-purple-prog':'');
+
+  for(var i=0;i<TOTAL_STEPS;i++){
+    var d=document.getElementById('sha-dot-'+i);
+    if(!d) continue;
+    d.className='sha-step-dot';
+    if(i===n){
+      d.classList.add(friendPhase?'sha-active-p':'sha-active');
+    } else if(i<n){
+      d.classList.add(i<5?'sha-done':(i===5?'sha-done':'sha-done-p'));
+    } else if(i===5&&n<5){
+      d.style.background='#c9a0e8'; d.style.opacity='.4';
+    }
+  }
+
+  if(n<=3){ phaseEl.textContent='YOUR ASSESSMENT'; phaseEl.className='sha-phase-label teal'; }
+  else if(n===4){ phaseEl.textContent='ONE MORE STEP'; phaseEl.className='sha-phase-label teal'; }
+  else if(n===5){ phaseEl.textContent='HAND OFF DEVICE'; phaseEl.className='sha-phase-label purple'; }
+  else if(n<=8){ phaseEl.textContent='FRIEND / SPOUSE ASSESSMENT'; phaseEl.className='sha-phase-label purple'; }
+  else { phaseEl.textContent='COMBINED RESULTS'; phaseEl.className='sha-phase-label teal'; }
+
+  document.getElementById('sha-app').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+window.shaGo=function(n){ setStep(n); };
+
+// ── Start ───────────────────────────────────────────────────────────────────
+window.shaStart=function(){
+  var f=document.getElementById('sha-first').value.trim();
+  var l=document.getElementById('sha-last').value.trim();
+  var e=document.getElementById('sha-email').value.trim();
+  if(!f||!l||!e.includes('@')){
+    document.getElementById('sha-warn-intro').classList.add('sha-show'); return;
+  }
+  document.getElementById('sha-warn-intro').classList.remove('sha-show');
+  user={first:f,last:l,email:e,name:f+' '+l};
+  // Pre-fill handoff screen with participant name
+  document.getElementById('sha-ho-pname').textContent=user.first+'\'s Assessment is Done!';
+  document.getElementById('sha-ho-pname2').textContent=user.first;
+  setStep(1);
+};
+
+// ── Self section next ────────────────────────────────────────────────────────
+window.shaNextSelf=function(sec,next){
+  var missing=QS[sec].filter(function(q){return !pScores[q.n];});
+  var wid='sha-warn-'+(sec==='nbr'?'nbr':sec);
+  if(missing.length){
+    document.getElementById(wid).classList.add('sha-show');
+    document.getElementById('plk-'+missing[0].n).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  document.getElementById(wid).classList.remove('sha-show');
+  setStep(next);
+};
+
+// ── Handoff next ─────────────────────────────────────────────────────────────
+window.shaHandoffNext=function(){
+  var fn=document.getElementById('sha-f-first').value.trim();
+  if(!fn){
+    document.getElementById('sha-warn-handoff').classList.add('sha-show'); return;
+  }
+  document.getElementById('sha-warn-handoff').classList.remove('sha-show');
+  friendName=fn;
+  // Update friend section subtitles
+  var sub="Observing "+user.first;
+  document.getElementById('sha-f-sec1-sub').textContent=sub+' • Questions 1–7';
+  document.getElementById('sha-f-sec2-sub').textContent=sub+' • Questions 8–14';
+  document.getElementById('sha-f-sec3-sub').textContent=sub+' • Questions 15–21';
+  setStep(6);
+};
+
+// ── Friend section next ───────────────────────────────────────────────────────
+window.shaNextFriend=function(sec,next){
+  var missing=QS[sec].filter(function(q){return !fScores[q.n];});
+  var wid='sha-warn-f'+(sec==='nbr'?'nbr':sec);
+  if(missing.length){
+    document.getElementById(wid).classList.add('sha-show');
+    document.getElementById('flk-'+missing[0].n).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  document.getElementById(wid).classList.remove('sha-show');
+  setStep(next);
+};
+
+// ── Finish ────────────────────────────────────────────────────────────────────
+window.shaFinish=function(){
+  var missing=QS.go.filter(function(q){return !fScores[q.n];});
+  if(missing.length){
+    document.getElementById('sha-warn-fgo').classList.add('sha-show');
+    document.getElementById('flk-'+missing[0].n).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  document.getElementById('sha-warn-fgo').classList.remove('sha-show');
+  setStep(9);
+  setTimeout(renderResults,120);
+};
+
+// ── Results ────────────────────────────────────────────────────────────────────
+function secAvg(sec,store){
+  return QS[sec].reduce(function(t,q){return t+(store[q.n]||0);},0)/QS[sec].length;
+}
+
+function renderResults(){
+  var pName=user.first, fName=friendName;
+
+  document.getElementById('sha-res-names').textContent=pName+' & '+fName;
+  document.getElementById('sha-cc-name').textContent=pName;
+  document.getElementById('sha-legend-p').textContent=pName;
+  document.getElementById('sha-legend-f').textContent=fName;
+  document.getElementById('sha-cmp-title').textContent=pName+' & '+fName+' — Side by Side';
+  document.getElementById('sha-cmp-p-hdr').textContent=pName;
+  document.getElementById('sha-cmp-f-hdr').textContent=fName;
+  document.getElementById('sha-leg-p2').textContent=pName+' (self)';
+  document.getElementById('sha-leg-f2').textContent=fName+' (observer)';
+
+  buildScoreCards(pName, fName);
+  buildCmpTable(pName, fName);
+  buildInsight(pName, fName);
+  buildChart(pName, fName);
+
+  var ccUrl='https://alg.churchcenter.com/people/forms/1188000'+
+    '?person[first_name]='+encodeURIComponent(user.first)+
+    '&person[last_name]='+encodeURIComponent(user.last)+
+    '&person[email_address]='+encodeURIComponent(user.email);
+  document.getElementById('sha-cc-link').href=ccUrl;
+}
+
+// ── Score cards ───────────────────────────────────────────────────────────────
+function buildScoreCards(pName, fName){
+  var grid=document.getElementById('sha-score-cards');
+  grid.innerHTML='';
+  [{k:'god',l:'LOVE GOD',cls:'gold'},{k:'nbr',l:'LOVE NEIGHBOR',cls:'blue'},{k:'go',l:'GO',cls:'green'}].forEach(function(s){
+    var pa=secAvg(s.k,pScores).toFixed(1);
+    var fa=secAvg(s.k,fScores).toFixed(1);
+    var d=document.createElement('div');
+    d.className='sha-sc sha-'+s.cls;
+    d.innerHTML=
+      '<div class="sha-rname2">'+s.l+'</div>'+
+      '<div class="sha-avgs">'+
+        '<div class="sha-av"><div class="sha-av-num self">'+pa+'</div><div class="sha-av-lbl">'+pName.split(' ')[0]+'</div></div>'+
+        '<div class="sha-av-div"></div>'+
+        '<div class="sha-av"><div class="sha-av-num friend">'+fa+'</div><div class="sha-av-lbl">'+fName.split(' ')[0]+'</div></div>'+
+      '</div>';
+    grid.appendChild(d);
+  });
+}
+
+// ── Comparison table ──────────────────────────────────────────────────────────
+function buildCmpTable(pName, fName){
+  var body=document.getElementById('sha-cmp-body');
+  body.innerHTML='';
+  [{k:'god',l:'🙏 LOVE GOD',cls:'gold'},{k:'nbr',l:'🤝 LOVE NEIGHBOR',cls:'blue'},{k:'go',l:'🌍 GO: EVANGELISM',cls:'green'}].forEach(function(sec){
+    var hdr=document.createElement('div');
+    hdr.className='sha-cmp-sec-lbl sha-'+sec.cls;
+    hdr.textContent=sec.l;
+    body.appendChild(hdr);
+    QS[sec.k].forEach(function(q){
+      var p=pScores[q.n]||0, f=fScores[q.n]||0;
+      var diff=f-p;
+      var dc=diff>0?'pos':diff<0?'neg':'zero';
+      var dl=diff>0?'+'+diff:diff===0?'—':''+diff;
+      var row=document.createElement('div');
+      row.className='sha-cmp-row';
+      row.innerHTML=
+        '<div class="sha-spoke">'+q.l+'</div>'+
+        '<div class="sha-sc2" style="color:'+SC_COLORS[p]+'">'+p+'</div>'+
+        '<div class="sha-sc2" style="color:#7B3FA0">'+f+'</div>'+
+        '<div class="sha-diff '+dc+'">'+dl+'</div>';
+      body.appendChild(row);
+    });
+  });
+}
+
+// ── Insight ───────────────────────────────────────────────────────────────────
+function buildInsight(pName, fName){
+  var secs=[
+    {k:'god', l:'Love God',       icon:'🙏'},
+    {k:'nbr', l:'Love Neighbor',  icon:'🤝'},
+    {k:'go',  l:'Go: Evangelism', icon:'🌍'}
+  ];
+  var pa={}, fa={};
+  secs.forEach(function(s){
+    pa[s.k]=secAvg(s.k,pScores);
+    fa[s.k]=secAvg(s.k,fScores);
+  });
+
+  // Find self: highest avg (most room to grow) and lowest (strongest)
+  var pWorst=secs.slice().sort(function(a,b){return pa[b.k]-pa[a.k];})[0];
+  var pBest =secs.slice().sort(function(a,b){return pa[a.k]-pa[b.k];})[0];
+
+  // Find biggest gap between self and friend
+  var maxGap=0, gapSec=null, gapDir='';
+  secs.forEach(function(s){
+    var g=fa[s.k]-pa[s.k];
+    if(Math.abs(g)>Math.abs(maxGap)){ maxGap=g; gapSec=s; gapDir=g>0?'higher':'lower'; }
+  });
+
+  var pFirst=pName.split(' ')[0];
+  var fFirst=fName.split(' ')[0];
+
+  // Build paragraphs
+  var paras=[];
+
+  // Opening — acknowledge what they just did
+  paras.push(
+    pFirst+', it takes real humility to invite someone into an honest look at your spiritual life. '+
+    'What you\'ve just done — completing this together — is itself a step toward the kind of iron-sharpening relationship Proverbs describes.'
+  );
+
+  // Strength acknowledgment
+  paras.push(
+    'Your strongest rhythm right now is <strong>'+pBest.icon+' '+pBest.l+'</strong> '+
+    '(avg '+pa[pBest.k].toFixed(1)+'). Take a moment to thank God for the work He\'s done in that area of your life. '+
+    'Growth that has already happened is worth naming before focusing on what\'s next.'
+  );
+
+  // Growth edge
+  paras.push(
+    'The rhythm with the most room to grow is <strong>'+pWorst.icon+' '+pWorst.l+'</strong> '+
+    '(avg '+pa[pWorst.k].toFixed(1)+'). That\'s not a verdict — it\'s an invitation. '+
+    'Look at the individual spokes in that section of the comparison table below and ask the Holy Spirit which one He\'s nudging you toward.'
+  );
+
+  // Gap / alignment observation
+  if(Math.abs(maxGap)>=0.5){
+    if(gapDir==='higher'){
+      paras.push(
+        fFirst+' scored you higher — meaning they see more room to grow — in <strong>'+gapSec.icon+' '+gapSec.l+'</strong> '+
+        'than you scored yourself (a difference of '+Math.abs(maxGap).toFixed(1)+' points on average). '+
+        'That gap is worth sitting with, not defending. It may be exactly where God wants to do something new. '+
+        'This is a good place to use the question: <em>"Help me understand — how did you come to that conclusion?"</em>'
+      );
+    } else {
+      paras.push(
+        fFirst+' actually scored you <em>lower</em> — meaning they see more growth in you — in <strong>'+gapSec.icon+' '+gapSec.l+'</strong> '+
+        'than you scored yourself. '+
+        'Sometimes we are harder on ourselves than the people who know us best. '+
+        pFirst+', let that be an encouragement. '+fFirst+' sees something God has been doing in you that you may not fully see yet.'
+      );
+    }
+  } else {
+    paras.push(
+      'Your scores and '+fFirst+'\'s observations are closely aligned across all three rhythms. '+
+      'That kind of agreement reflects real self-awareness — a gift in itself. '+
+      'Since the gaps are small, pay close attention to the individual spokes in the table below. '+
+      'The most important next step is often hiding in the details, not the averages.'
+    );
+  }
+
+  // Build HTML
+  var html=paras.map(function(p){
+    return '<p>'+p+'</p>';
+  }).join('');
+
+  document.getElementById('sha-ins-title').innerHTML='✨ '+pFirst+' & '+fFirst+' — A Word Before You Go';
+  document.getElementById('sha-ins-body').innerHTML=html;
+}
+
+// ── Chart ─────────────────────────────────────────────────────────────────────
+function buildChart(pName,fName){
+  if(!window.Chart){ setTimeout(function(){buildChart(pName,fName);},200); return; }
+  if(chart) chart.destroy();
+  var allQs=[].concat(QS.god,QS.nbr,QS.go);
+  var labels=allQs.map(function(q){return q.l;});
+  var pData=allQs.map(function(q){return pScores[q.n]||0;});
+  var fData=allQs.map(function(q){return fScores[q.n]||0;});
+  var ptColors=allQs.map(function(q,i){return i<7?'#C8860A':i<14?'#1A6BAF':'#2E8B57';});
+  var ctx=document.getElementById('sha-canvas').getContext('2d');
+  var bullseyeRings={
+    id:'bullseyeRings',
+    beforeDraw:function(c){
+      var r=c.scales.r; if(!r) return;
+      var gx=r.xCenter, gy=r.yCenter;
+      var cols=['rgba(46,139,87,0.18)','rgba(122,191,122,0.15)','rgba(212,165,0,0.13)','rgba(224,112,80,0.12)','rgba(204,34,34,0.10)'];
+      for(var i=5;i>=1;i--){
+        var px=r.getDistanceFromCenterForValue(i);
+        c.ctx.save(); c.ctx.beginPath();
+        c.ctx.arc(gx,gy,px,0,Math.PI*2);
+        c.ctx.fillStyle=cols[i-1]; c.ctx.fill(); c.ctx.restore();
+      }
+    }
+  };
+  chart=new Chart(ctx,{
+    type:'radar',
+    data:{labels:labels,datasets:[
+      {label:pName,data:pData,backgroundColor:'rgba(61,191,191,.18)',borderColor:'#3DBFBF',borderWidth:2.5,
+       pointBackgroundColor:ptColors,pointBorderColor:'#fff',pointRadius:5,pointHoverRadius:7},
+      {label:fName,data:fData,backgroundColor:'rgba(123,63,160,.12)',borderColor:'#7B3FA0',borderWidth:2.5,
+       borderDash:[5,4],pointBackgroundColor:'#7B3FA0',pointBorderColor:'#fff',pointRadius:5,pointHoverRadius:7}
+    ]},
+    options:{responsive:true,
+      scales:{r:{min:0,max:5,ticks:{stepSize:1,display:false},
+        grid:{color:'rgba(0,0,0,0.1)'},angleLines:{color:'rgba(0,0,0,0.15)'},
+        pointLabels:{font:{size:9,weight:'bold'},
+          color:function(c){return c.index<7?'#C8860A':c.index<14?'#1A6BAF':'#2E8B57';}
+        }}},
+      plugins:{
+        legend:{display:true,position:'bottom',labels:{font:{size:12},padding:14,usePointStyle:true}},
+        tooltip:{callbacks:{label:function(c){return ' '+c.dataset.label+': '+c.raw+' — '+(SC_LABELS[c.raw]||'');}}}
+      }
+    },
+    plugins:[bullseyeRings]
+  });
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────────────
+window.shaReset=function(){
+  pScores={}; fScores={}; user={}; friendName='';
+  document.getElementById('sha-first').value='';
+  document.getElementById('sha-last').value='';
+  document.getElementById('sha-email').value='';
+  document.getElementById('sha-f-first').value='';
+  document.querySelectorAll('#sha-app .sha-lb').forEach(function(b){b.className='sha-lb';});
+  setStep(0);
+};
+
+})();
+</script>
+
+</body>
+</html>
